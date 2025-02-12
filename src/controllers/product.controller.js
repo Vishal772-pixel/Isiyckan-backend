@@ -57,6 +57,42 @@ export const getProductById = async (req, res) => {
   }
 };
 
+// Create a new product
+export const createProduct = async (req, res) => {
+  try {
+    const { name, description, price, category, stock, images } = req.body;
+
+    if (!name || !price || !category) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, price, and category are required",
+      });
+    }
+
+    const product = new Product({
+      name,
+      description,
+      price,
+      category,
+      stock,
+      images,
+    });
+
+    await product.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "Product added successfully",
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // Get all categories
 export const getAllCategories = async (req, res) => {
   try {

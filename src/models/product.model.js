@@ -15,13 +15,16 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    type: String,
     required: true
   },
   stock: {
     type: Number,
     default: 0
+  },
+  quantity:{
+    type:Number,
+    default:1
   },
   images: [{
     url: String,
@@ -77,3 +80,4 @@ const productSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 export const Product = mongoose.model("Product", productSchema);
+

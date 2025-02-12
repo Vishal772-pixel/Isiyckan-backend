@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
       $or: [{ username }, { email }]
     });
 
-    if (existingUser) {
+    if (existingUser) { //jab same email se user exits karta ho
       return res.status(409).json({
         success: false,
         message: "User with email or username already exists"
@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) {
+    if (!user) { // jab user exist nahi 
       return res.status(404).json({
         success: false,
         message: "User does not exist"
