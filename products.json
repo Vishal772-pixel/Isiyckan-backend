@@ -1,86 +1,105 @@
-[
+
   
-  [
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO ANTRACITE",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED ANTHRACITE",
-      "image": "https://ordini.scab.it/images/articles/2502_ZA.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO TERRACOTTA",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED TERRACOTTA",
-      "image": "https://ordini.scab.it/images/articles/2502_ZE.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO LINO",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED LINEN",
-      "image": "https://ordini.scab.it/images/articles/2502_ZL.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO AVIO",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED AIR-FORCE BLUE",
-      "image": "https://ordini.scab.it/images/articles/2502_ZO.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO TORTORA",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED DOVE GREY",
-      "image": "https://ordini.scab.it/images/articles/2502_ZT.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO VERDE OLIVA",
-      "price": 171.00,
-      "quantity": 2,
-      "description": "ARMCHAIR SI-SI' ZINC COATED GREEN OLIVE",
-      "image": "https://ordini.scab.it/images/articles/2502_ZV.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "POLTRONE SI-SI' TELAIO ZINCATO VERN. VERDE OLIVA C/CUSCINO VERDE OLIVA",
-      "price": 211.00,
-      "quantity": 2,
-      "description": "CHAIR SI-SI' ZINC COATED GREEN OLIVE WITH CUSHION B3",
-      "image": "https://ordini.scab.it/images/articles/2502_ZV_001_B3.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO ANTRACITE",
-      "price": 149.00,
-      "quantity": 2,
-      "description": "CHAIR SI-SI' ZINC COATED ANTHRACITE",
-      "image": "https://ordini.scab.it/images/articles/2503_ZA.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO TERRACOTTA",
-      "price": 149.00,
-      "quantity": 2,
-      "description": "CHAIR SI-SI' ZINC COATED TERRACOTTA",
-      "image": "https://ordini.scab.it/images/articles/2503_ZE.jpg",
-      "category": "Chair"
-    },
-    {
-      "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO LINO",
-      "price": 149.00,
-      "quantity": 2,
-      "description": "CHAIR SI-SI' ZINC COATED LINEN",
-      "image": "https://ordini.scab.it/images/articles/2503_ZL.jpg",
-      "category": "Chair"
-    }
-  ]
+  // [
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO ANTRACITE",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED ANTHRACITE",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZA.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO TERRACOTTA",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED TERRACOTTA",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZE.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO LINO",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED LINEN",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZL.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO AVIO",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED AIR-FORCE BLUE",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZO.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO TORTORA",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED DOVE GREY",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZT.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONA SI-SI' TELAIO ZINCATO VERNICIATO VERDE OLIVA",
+  //     "price": 171.00,
+  //     "quantity": 2,
+  //     "description": "ARMCHAIR SI-SI' ZINC COATED GREEN OLIVE",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZV.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "POLTRONE SI-SI' TELAIO ZINCATO VERN. VERDE OLIVA C/CUSCINO VERDE OLIVA",
+  //     "price": 211.00,
+  //     "quantity": 2,
+  //     "description": "CHAIR SI-SI' ZINC COATED GREEN OLIVE WITH CUSHION B3",
+  //     "image": "https://ordini.scab.it/images/articles/2502_ZV_001_B3.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO ANTRACITE",
+  //     "price": 149.00,
+  //     "quantity": 2,
+  //     "description": "CHAIR SI-SI' ZINC COATED ANTHRACITE",
+  //     "image": "https://ordini.scab.it/images/articles/2503_ZA.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO TERRACOTTA",
+  //     "price": 149.00,
+  //     "quantity": 2,
+  //     "description": "CHAIR SI-SI' ZINC COATED TERRACOTTA",
+  //     "image": "https://ordini.scab.it/images/articles/2503_ZE.jpg",
+  //     "category": "Chair"
+  //   },
+  //   {
+  //     "name": "SEDIA SI-SI' TELAIO ZINCATO VERNICIATO LINO",
+  //     "price": 149.00,
+  //     "quantity": 2,
+  //     "description": "CHAIR SI-SI' ZINC COATED LINEN",
+  //     "image": "https://ordini.scab.it/images/articles/2503_ZL.jpg",
+  //     "category": "Chair"
+  //   }
+  // ]
   
-]
+
+  // [
+  //   {
+  //     "name": "Product 1",
+  //     "description": "Description of Product 1",
+  //     "price": 100,
+  //     "category": "Category 1",
+  //     "stock": 10,
+  //     "images": ["image1.jpg"]
+  //   },
+  //   {
+  //     "name": "Product 2",
+  //     "description": "Description of Product 2",
+  //     "price": 200,
+  //     "category": "Category 2",
+  //     "stock": 20,
+  //     "images": ["image2.jpg"]
+  //   }
+  // ]
+  

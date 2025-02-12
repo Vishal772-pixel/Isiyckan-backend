@@ -11,6 +11,13 @@ connectDB().then(() => {
     console.log(`Server is running at port: ${process.env.PORT}`);
   });
 })
+
+
+// app.get("/",(req,res)=>{
+//   res.send("Welcome to IsIyckan Designs")
+// })
+
+
 // .catch((err) => {
 //   console.log("MongoDB connection failed !!! ", err);
 // });

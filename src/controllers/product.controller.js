@@ -58,32 +58,82 @@ export const getProductById = async (req, res) => {
 };
 
 // Create a new product
+// export const createProduct = async (req, res) => {
+//   try {
+//     const { name, description, price, category, stock, images } = req.body;
+
+//     console.log(req.body);
+
+//     if (!name || !price || !category) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Name, price, and category are required",
+//       });
+//     }
+
+//     const product = new Product({
+//       name,
+//       description,
+//       price,
+//       category,
+//       stock,
+//       images,
+//     });
+
+//     console.log(product);
+
+//     await product.save();
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Product added successfully",
+//       product,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
+
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, stock, images } = req.body;
+    const productsData = req.body; // Array of products
 
-    if (!name || !price || !category) {
+    console.log(productsData);
+
+    // Check if the array is provided and each product contains the required fields
+    // if (!Array.isArray(productsData) || productsData.length === 0) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "You must provide an array of products",
+    //   });
+    // }
+
+    // Validate each product data
+    const invalidProduct = productsData.find(
+      (product) => !product.name || !product.price || !product.category
+    );
+
+    if (invalidProduct) {
       return res.status(400).json({
         success: false,
-        message: "Name, price, and category are required",
+        message: "Each product must have a name, price, and category",
       });
     }
 
-    const product = new Product({
-      name,
-      description,
-      price,
-      category,
-      stock,
-      images,
-    });
+    // Use insertMany to insert multiple products at once
+    const products = await Product.insertMany(productsData);
 
-    await product.save();
+    console.log(products);
 
     return res.status(201).json({
       success: true,
-      message: "Product added successfully",
-      product,
+      message: "Products added successfully",
+      products,
     });
   } catch (error) {
     return res.status(500).json({
@@ -92,6 +142,10 @@ export const createProduct = async (req, res) => {
     });
   }
 };
+
+
+
+
 
 // Get all categories
 export const getAllCategories = async (req, res) => {

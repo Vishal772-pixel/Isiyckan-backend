@@ -26,9 +26,9 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // Tring to start server
-// app.get("/",(req,res)=>{
-//     res.send("Welcome to IsIyckan Designs")
-// })
+app.get("/",(req,res)=>{
+    res.send("Welcome to IsIyckan Design")
+})
 
 
 

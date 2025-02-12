@@ -26,10 +26,10 @@ const productSchema = new mongoose.Schema({
     type:Number,
     default:1
   },
-  images: [{
-    url: String,
-    altText: String
-  }],
+  images: {
+    url: String
+  
+  },
   EAN: {
     type: String, // European Article Number
     required: false
