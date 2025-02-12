@@ -1,0 +1,40 @@
+{
+  "name": "isiyckan",
+  "version": "1.0.0",
+  "description": "furniture eccomerce platform for b2b ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Vishal772-pixel/Islyckan backend***.git"
+  },
+  "keywords": [
+    "furniture"
+  ],
+  "author": "vishal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vishal772-pixel/Islyckan/issues"
+  },
+  "homepage": "https://github.com/Vishal772-pixel/Islyckan#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.2.1",
+    "stripe": "^14.19.0"
+  }
+}
