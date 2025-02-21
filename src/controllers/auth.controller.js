@@ -1,88 +1,103 @@
-// Auth is here for the login and Register Purpose 
 import { User } from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import express from "express";
 
-const generateAccessAndRefreshTokens = async(userId) => {
+const router = express.Router();
+
+// Token Generator Function
+const generateAccessToken = (user) => {
   try {
-    const user = await User.findById(userId);
-    const accessToken = user.generateAccessToken();
-    return { accessToken };
+    console.log("🔹 Generating access token for user:", user._id);
+    return jwt.sign(
+      { _id: user._id, email: user.email },
+      process.env.ACCESS_TOKEN_SECRET, // Ensure this is correctly set in .env
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRY || "1h" }
+    );
   } catch (error) {
-    throw new Error("Something went wrong while generating tokens");
+    console.error("❌ Error generating token:", error);
+    throw new Error("Token generation failed");
   }
 };
 
-export const registerUser = async (req, res) => {
+// REGISTER USER
+router.post("/register", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    console.log("🟢 Registration Request Received:", req.body);
 
-    const existingUser = await User.findOne({
-      $or: [{ username }, { email }]
-    });
-
-    if (existingUser) { //jab same email se user exits karta ho
-      return res.status(409).json({
-        success: false,
-        message: "User with email or username already exists"
-      });
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      console.warn("⚠️ Missing Fields in Registration");
+      return res.status(400).json({ message: "All fields are required." });
     }
 
-    const user = await User.create({
-      username,
-      email,
-      password
-    });
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.warn("⚠️ User already exists:", email);
+      return res.status(400).json({ message: "User already registered" });
+    }
 
-    const { accessToken } = await generateAccessAndRefreshTokens(user._id);
+    console.log("🔹 Password before hashing:", password);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("🔹 Hashed Password:", hashedPassword);
 
-    return res.status(201).json({
-      success: true,
-      user,
-      accessToken
-    });
+    // Save User
+    const newUser = new User({ name, email, password: hashedPassword });
+    await newUser.save();
+    console.log("✅ User Registered Successfully:", newUser._id);
 
+    res.status(201).json({ message: "User registered successfully!" });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    console.error("❌ Registration Error:", error);
+    res.status(500).json({ message: "Server error, try again later." });
   }
-};
+});
 
-export const loginUser = async (req, res) => {
+// LOGIN USER
+router.post("/login", async (req, res) => {
   try {
+    console.log("🟢 Login Request Received:", req.body);
+
     const { email, password } = req.body;
+    if (!email || !password) {
+      console.warn("⚠️ Missing Email or Password");
+      return res.status(400).json({ message: "All fields are required." });
+    }
 
     const user = await User.findOne({ email });
 
-    if (!user) { // jab user exist nahi 
-      return res.status(404).json({
-        success: false,
-        message: "User does not exist"
-      });
+    if (!user) {
+      console.warn("⚠️ User does not exist:", email);
+      return res.status(404).json({ message: "User does not exist" });
     }
 
-    const isPasswordValid = await user.isPasswordCorrect(password);
+    console.log("🔹 Checking Password - Entered:", password, "Stored (Hashed):", user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password); // FIXED
 
     if (!isPasswordValid) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid credentials"
-      });
+      console.warn("❌ Invalid password attempt for user:", email);
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const { accessToken } = await generateAccessAndRefreshTokens(user._id);
+    console.log("✅ User authenticated successfully:", user._id);
+    const accessToken = generateAccessToken(user);
 
     return res.status(200).json({
       success: true,
-      user,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email
+      },
       accessToken
     });
-
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message
-    });
+    console.error("❌ Login Error:", error);
+    return res.status(500).json({ message: "Server error, try again later." });
   }
-};
+});
+
+export default router;
+export { generateAccessToken };
+
