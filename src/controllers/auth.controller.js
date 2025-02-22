@@ -12,7 +12,6 @@ const generateAccessToken = (user) => {
 };
 
 // REGISTER USER
-
 export const registerUser = async (req, res) => {
   try {
     console.log("🟢 Registration Request Received:", req.body); // 👀 Debugging Line
@@ -43,8 +42,8 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error, try again later." });
   }
 };
-// login function
 
+// LOGIN USER
 export const loginUser = async (req, res) => {
   try {
     console.log("🟢 Login Request Received:", req.body);
@@ -76,12 +75,47 @@ export const loginUser = async (req, res) => {
       user: {
         _id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
       },
-      accessToken
+      accessToken,
     });
   } catch (error) {
     console.error("❌ Login Error:", error);
     return res.status(500).json({ message: "Server error, try again later." });
+  }
+};
+
+// GET USER DASHBOARD (REAL-TIME DATA)
+export const getUserDashboard = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate("orders");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({
+      name: user.name,
+      email: user.email,
+      address: user.address,
+      orders: user.orders,
+      transactions: user.transactions || [],
+    });
+  } catch (error) {
+    console.error("❌ Error fetching dashboard data:", error);
+    res.status(500).json({ message: "Server error, try again later." });
+  }
+};
+
+// UPDATE USER DASHBOARD
+export const updateUserDashboard = async (req, res) => {
+  try {
+    const { address } = req.body;
+    const user = await User.findByIdAndUpdate(req.user._id, { address }, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "Dashboard updated successfully", user });
+  } catch (error) {
+    console.error("❌ Error updating dashboard:", error);
+    res.status(500).json({ message: "Server error, try again later." });
   }
 };
