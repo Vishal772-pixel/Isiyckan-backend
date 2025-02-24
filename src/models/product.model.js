@@ -73,6 +73,9 @@ const productSchema = new mongoose.Schema({
   color: {
     type: String // Color of the product
   },
+  price:{
+    type: Number, 
+  },
   imageLink: {
     type: String, // Link immagine
     required: false
