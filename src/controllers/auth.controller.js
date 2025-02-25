@@ -14,34 +14,36 @@ const generateAccessToken = (user) => {
 // REGISTER USER
 export const registerUser = async (req, res) => {
   try {
-    console.log("🟢 Registration Request Received:", req.body); // 👀 Debugging Line
+    const { name, email, password } = req.body;
 
-    const { name, email, password, confirmPassword } = req.body;
-
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords do not match." });
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "User already exists" });
     }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already registered" });
-    }
+    const user = await User.create({
+      name,
+      email,
+      password,
+      role // Default role for normal users
+    });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({ name, email, password: hashedPassword });
-    await newUser.save();
-
-    res.status(201).json({ message: "User registered successfully!" });
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
   } catch (error) {
-    console.error("❌ Registration Error:", error);
-    res.status(500).json({ message: "Server error, try again later." });
+    console.error("❌ Register Error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // LOGIN USER
 export const loginUser = async (req, res) => {
@@ -53,6 +55,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "All fields are required." });
     }
 
+    // Find user by email
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -60,22 +63,23 @@ export const loginUser = async (req, res) => {
       return res.status(404).json({ message: "User does not exist" });
     }
 
-    console.log("🔍 Found User:", user);
-
+    // Check password
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
-      console.log("❌ Password does not match!");
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // Generate access token
     const accessToken = generateAccessToken(user);
 
+    // Send response with role
     return res.status(200).json({
       success: true,
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role, // Include role in response
       },
       accessToken,
     });
@@ -84,6 +88,8 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({ message: "Server error, try again later." });
   }
 };
+
+
 
 // GET USER DASHBOARD (REAL-TIME DATA)
 export const getUserDashboard = async (req, res) => {

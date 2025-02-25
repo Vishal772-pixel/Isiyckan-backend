@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     postalCode: String,
     country: String
   },
+  role :{
+    type: String,
+    enum: ["user", "admin"],
+    // default: "user"
+  },
   orders: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order"

@@ -2,27 +2,31 @@ import { Product } from "../models/product.model.js";
 import { Category } from "../models/category.model.js";
 
 // Get all products with optional category, sorting, pagination
+// Get all products with optional category, sorting, pagination
 export const getAllProducts = async (req, res) => {
   try {
-    const { category, sort, page = 1, limit = 10 } = req.query;
-    const query = {};
+    const { category, sort = 'createdAt', page = 1, limit = 10 } = req.query;
 
-    if (category) {
-      query.category = category; // Filter by category
+    // Set up the filter query based on category (if provided)
+    const query = {};
+    if (category && category !== 'All') {
+      query.category = category; // Filter by category if not 'All'
     }
 
+    // Fetch the products with pagination and sorting
     const products = await Product.find(query)
       .populate("category")
-      .sort(sort) // Sort by field, e.g., "price" or "-price" (descending)
-      .limit(limit * 1) // Pagination limit
-      .skip((page - 1) * limit); // Skip for pagination
+      .sort(sort)
+      .limit(parseInt(1600))  // Make sure to parse the limit as an integer
+      .skip((page - 1) * parseInt(1600)); // Skip for pagination logic
 
-    const count = await Product.countDocuments(query); // Total count of matching products
+    // Count the total number of matching products
+    const count = await Product.countDocuments(query);
 
     return res.status(200).json({
       success: true,
       products,
-      totalPages: Math.ceil(count / limit),
+      totalPages: Math.ceil(count / 1600),
       currentPage: page,
     });
   } catch (error) {
@@ -32,6 +36,8 @@ export const getAllProducts = async (req, res) => {
     });
   }
 };
+
+
 
 // Get a single product by ID
 export const getProductById = async (req, res) => {
