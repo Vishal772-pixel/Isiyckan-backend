@@ -26,7 +26,7 @@ export const getAllProducts = async (req, res) => {
     return res.status(200).json({
       success: true,
       products,
-      totalPages: Math.ceil(count / 1600),
+      totalPages: Math.ceil(count / 16000),
       currentPage: page,
     });
   } catch (error) {
